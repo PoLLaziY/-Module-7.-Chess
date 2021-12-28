@@ -16,14 +16,14 @@ public abstract class ChessPiece {
     }
 
     public boolean checkPos(int pos) {
-        return (pos >= 0 && pos <= 7) ? true:false;
+        return pos >= 0 && pos <= 7;
     }
 
     public boolean canMoveToPosition(ChessBoard chessBoard, int startLine, int startColumn, int toLine, int toColumn) {
-        boolean basic = checkPos(startLine) && checkPos(startColumn) &&
+        return checkPos(startLine) && checkPos(startColumn) &&
                 checkPos(toLine) && checkPos(toColumn) &&
                 !(startLine == toLine && startColumn == toColumn) &&
-                (chessBoard.board[toLine][toColumn] == null || !chessBoard.board[toLine][toColumn].getColor().equals(this.color));
-        return basic;
+                (chessBoard.board[toLine][toColumn] == null ||
+                        !chessBoard.board[toLine][toColumn].getColor().equals(this.color));
     }
 }
