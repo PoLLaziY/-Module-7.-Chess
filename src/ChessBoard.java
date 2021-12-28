@@ -12,16 +12,16 @@ public class ChessBoard {
 
     public boolean moveToPosition(int startLine, int startColumn, int endLine, int endColumn) {
         if (!nowPlayer.equals(board[startLine][startColumn].getColor())) return false;
-        if (board[startLine][startColumn].canMoveToPosition(this, startLine, startColumn, endLine, endColumn)) {
-            if (board[startLine][startColumn].getSymbol().equals("K") ||  // check position for castling
-                    board[startLine][startColumn].getSymbol().equals("R")) {
-                board[startLine][startColumn].check = false;
-            }
-            board[endLine][endColumn] = board[startLine][startColumn]; // if piece can move, we moved a piece
-            board[startLine][startColumn] = null; // set null to previous cell
-            this.nowPlayer = this.nowPlayerColor().equals("White") ? "Black" : "White";
-            return true;
-        } else return false;
+        if (!board[startLine][startColumn].canMoveToPosition(this, startLine, startColumn, endLine, endColumn))
+            return false;
+        if (board[startLine][startColumn].getSymbol().equals("K") ||  // check position for castling
+                board[startLine][startColumn].getSymbol().equals("R")) {
+            board[startLine][startColumn].check = false;
+        }
+        board[endLine][endColumn] = board[startLine][startColumn]; // if piece can move, we moved a piece
+        board[startLine][startColumn] = null; // set null to previous cell
+        this.nowPlayer = this.nowPlayerColor().equals("White") ? "Black" : "White";
+        return true;
     }
 
     public void printBoard() {  //print board in console
